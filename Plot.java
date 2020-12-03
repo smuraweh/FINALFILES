@@ -62,7 +62,6 @@ public class Plot extends JFrame {
 	    LinkedList<String> dates = new LinkedList();
 	    int numDates = 0;
 	    int totalDates = numColumns - 6;
-	    XYDataset dataset = data;
 	    
 	    /*
 	     * Moves through the rows
@@ -72,18 +71,20 @@ public class Plot extends JFrame {
 	    	/*
 	    	 * Moves through the columns
 	    	 */
-	    	for(int j = 6; j < numColumns; j++)
-	    	{
-	    		double id = (double) model.getValueAt(i, 1);
-	    		double time = (double) model.getValueAt(i, j);
-	    		time = time / 75 * 100;
-	    		dates.add(model.getColumnName(j));
-	    		series1.add(id, time);
+	    	
+	    		String id = (String) model.getValueAt(i, 0);
+	    		String time = (String) model.getValueAt(i, 6);
+	    		double idD = Double.valueOf(id);
+	    		double timeD = Double.valueOf(time);
+	    		timeD = timeD / 75 * 100;
+	    		dates.add("January 1st");
+	    		series1.add(idD, timeD);
 	    		numDates++;
-	    	}
-	    	data.addSeries(series1);
+	    
 	    }
+	    data.addSeries(series1);
 		 
+	    XYDataset dataset = data;
 	    JFreeChart chart = ChartFactory.createScatterPlot(chartTitle, xAxisLabel, yAxisLabel, dataset);
 		
 		XYPlot xyPlot = (XYPlot) chart.getPlot();
@@ -93,17 +94,7 @@ public class Plot extends JFrame {
         /*
          * Sets the legend
          */
-
-        Random rand = new Random();
-        for(int i = 0; i < totalDates; i++)
-        {
-        	float r = rand.nextFloat();
-            float g = rand.nextFloat();
-            float b = rand.nextFloat();
-
-            Color randomColor = new Color(r, g, b);
-        	chartLegend.add(new LegendItem(dates.get(i), null, null, null, shape, randomColor));
-        }
+        //chartLegend.add(date, null, null, null, shape, Color.blue));
         xyPlot.setFixedLegendItems(chartLegend);
         XYItemRenderer renderer = xyPlot.getRenderer();
         renderer.setSeriesPaint(0, Color.blue);
@@ -111,6 +102,7 @@ public class Plot extends JFrame {
         NumberAxis range = (NumberAxis) xyPlot.getRangeAxis(); //Sets yAxis
         range.setRange(0, 100); //YAxis is 0 to 100
         range.setTickUnit(new NumberTickUnit(5));
+        domain.setRange(0,999999);
         
         JPanel chartPanel = new ChartPanel(chart);
         
