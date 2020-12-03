@@ -8,13 +8,7 @@ public class Save {
 	private String filename;
 	private FileWriter fstream;
 	Student student = new Student();
-	String id;
-	String min;
-	String firstName;
-	String program;
-	String lastName;
-	String username;
-	String level;
+
 	/**
 	 * This method prints the information into a csv file using the information given by the main class.
 	 * 
@@ -23,18 +17,13 @@ public class Save {
 	 * lineSeperator is used to move to next row
 	 * 
 	 * //@param namedFile
-	 * //@param idNum
-	 * //@param firstName
-	 * //@param lastName
-	 * //@param level
-	 * //@param program
-	 * //@param username
-	 * //@param minutes
+	 * //@param table
 	 */
-	//void writeFile(String namedFile, LinkedList<Student> studentList)
 	void writeFile(String namedFile, JTable table)
 	{
-		
+		/*
+		 * Allows program to open a file and then write the information to it
+		 */
 		try
 		{
 			filename = namedFile;
@@ -42,10 +31,7 @@ public class Save {
 
 			DefaultTableModel model = (DefaultTableModel)table.getModel();
 			int columns = model.getColumnCount();
-			/*
-			 *  idNum and minutes need to be converted to Strings first so I could write them out
-			 */
-			//for(int i = 0; i < studentList.size(); i++)
+			
 			for(int i = 0; i < model.getRowCount(); i++)
 		    {
 				for(int n = 0; n < columns; n++){
