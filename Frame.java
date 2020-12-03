@@ -145,7 +145,7 @@ public class Frame extends JFrame implements MenuListener, ActionListener{
         }
         else if(e.getSource() == plot) {
             plotObject = new Plot(table);
-            plotObject.display();
+            plotObject.display(table);
         }
     }
 
